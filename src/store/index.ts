@@ -1,13 +1,14 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync, appendFileSync, unlinkSync } from "fs";
 import { join } from "path";
-export type { Collection, Environment, Config, HistoryEntry, CollectionRequest } from "./types.js";
-import type { Collection, Environment, Config, HistoryEntry } from "./types.js";
+export type { Collection, Environment, Config, HistoryEntry, CollectionRequest, AuthConfig } from "./types.js";
+import type { Collection, Environment, Config, HistoryEntry, AuthConfig } from "./types.js";
 
 const POSTUI_DIR = ".postui";
 const COLLECTIONS_DIR = join(POSTUI_DIR, "collections");
 const ENVIRONMENTS_DIR = join(POSTUI_DIR, "environments");
 const CONFIG_FILE = join(POSTUI_DIR, "config.json");
 const HISTORY_FILE = join(POSTUI_DIR, "history.jsonl");
+const GLOBALS_FILE = join(POSTUI_DIR, "globals.json");
 
 function ensureDirs() {
   if (!existsSync(POSTUI_DIR)) mkdirSync(POSTUI_DIR, { recursive: true });
@@ -89,6 +90,18 @@ export function saveConfig(config: Config) {
   writeJson(CONFIG_FILE, config);
 }
 
+// Globals
+
+export function loadGlobals(): Record<string, string> {
+  ensureDirs();
+  return readJson<Record<string, string>>(GLOBALS_FILE) ?? {};
+}
+
+export function saveGlobals(globals: Record<string, string>) {
+  ensureDirs();
+  writeJson(GLOBALS_FILE, globals);
+}
+
 // History
 
 export function appendHistory(entry: HistoryEntry) {
@@ -113,4 +126,27 @@ export function loadAllHistory(): HistoryEntry[] {
   if (!existsSync(HISTORY_FILE)) return [];
   const lines = readFileSync(HISTORY_FILE, "utf-8").split("\n").filter(Boolean);
   return lines.map((l) => JSON.parse(l) as HistoryEntry);
+}
+
+// Variable resolution
+
+export function resolveVariables(
+  text: string,
+  globals: Record<string, string>,
+  envVars: Record<string, string>
+): string {
+  return text.replace(/\{\{(\w+)\}\}/g, (match, varName) => {
+    return envVars[varName] ?? globals[varName] ?? match;
+  });
+}
+
+// Auth
+
+export function getEffectiveAuth(
+  requestAuth: AuthConfig | undefined,
+  collectionAuth: AuthConfig | undefined
+): AuthConfig | null {
+  if (requestAuth && requestAuth.type) return requestAuth;
+  if (collectionAuth && collectionAuth.type) return collectionAuth;
+  return null;
 }
