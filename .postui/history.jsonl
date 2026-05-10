@@ -1,0 +1,7 @@
+{"timestamp":"2026-05-10T02:44:56.628Z","method":"GET","url":"https://jsonplaceholder.typicode.com/posts/1","headers":{},"body":null,"status":200,"latency":112}
+{"timestamp":"2026-05-10T02:48:32.898Z","method":"GET","url":"https://jsonplaceholder.typicode.com/posts/1","headers":{},"body":null,"status":200,"latency":61}
+{"timestamp":"2026-05-10T02:48:57.610Z","method":"DELETE","url":"https://jsonplaceholder.typicode.com/posts/1","headers":{},"body":null,"status":200,"latency":105}
+{"timestamp":"2026-05-10T02:49:05.128Z","method":"DELETE","url":"https://jsonplaceholder.typicode.com/posts/1","headers":{},"body":null,"status":200,"latency":31}
+{"timestamp":"2026-05-10T02:49:08.497Z","method":"DELETE","url":"https://jsonplaceholder.typicode.com/posts/1","headers":{},"body":null,"status":200,"latency":39}
+{"timestamp":"2026-05-10T02:49:10.986Z","method":"DELETE","url":"https://jsonplaceholder.typicode.com/posts/1","headers":{},"body":null,"status":200,"latency":32}
+{"timestamp":"2026-05-10T03:32:29.644Z","method":"GET","url":"https://jsonplaceholder.typicode.com/users","headers":{},"body":null,"status":200,"latency":228}

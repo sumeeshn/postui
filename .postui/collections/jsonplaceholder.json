@@ -1,0 +1,40 @@
+{
+  "id": "jsonplaceholder",
+  "name": "JSONPlaceholder",
+  "requests": [
+    {
+      "id": "get-posts",
+      "name": "Get Posts",
+      "method": "GET",
+      "url": "https://jsonplaceholder.typicode.com/posts/1",
+      "headers": {},
+      "body": null
+    },
+    {
+      "id": "get-post",
+      "name": "Get Single Post",
+      "method": "GET",
+      "url": "https://jsonplaceholder.typicode.com/posts/1",
+      "headers": {},
+      "body": null
+    },
+    {
+      "id": "create-post",
+      "name": "Create Post",
+      "method": "POST",
+      "url": "https://jsonplaceholder.typicode.com/posts",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\n  \"title\": \"foo\",\n  \"body\": \"bar\",\n  \"userId\": 1\n}"
+    },
+    {
+      "id": "get-users",
+      "name": "Get Users",
+      "method": "GET",
+      "url": "https://jsonplaceholder.typicode.com/users",
+      "headers": {},
+      "body": null
+    }
+  ]
+}
